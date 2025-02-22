@@ -35,7 +35,7 @@ public:
 int main()
 {
    vector<int> nums{6};
-   int k = 6;
+    int k = 6;
    Solution sol;
    cout<<sol.maxOperations(nums,k)<<endl;
    
