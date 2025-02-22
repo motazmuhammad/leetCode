@@ -28,6 +28,5 @@ int main()
    string w1="abc", w2="pqr";
    Solution sol;
    cout<<sol.mergeAlternately(w1,w2);
-    cout<<"hello word"<<endl;
-    return 0;
+   return 0;
 }
