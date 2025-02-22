@@ -1,32 +1,46 @@
 #include <iostream>
+#include<vector>
+
+
+#include <vector>
+#include <climits> // For INT_MAX
+#include<numeric>
+#include<algorithm>
 using namespace std;
+
 class Solution {
 public:
-    string mergeAlternately(string word1, string word2) {
-        int w1it = 0;
-        int w2it = 0;
-        string ret = "";
-        while (w1it < word1.size() || w2it < word2.size())
-           {
-           if(w1it<word1.size())
-              {
-              ret+=word1[w1it];
-              w1it++;
-              }
-           if (w2it < word2.size())
-              {
-              ret+=word2[w2it];
-              w2it++;
-              }
-
-           }
-        return ret;
+    bool increasingTriplet(vector<int>& nums) {
+       if(nums.size()<3)
+          return false;
+      std::vector<int> lm(nums.size());
+      std::vector<int> rm(nums.size());
+      int mn = INT_MAX;
+      int mx = INT_MIN;
+      
+      partial_sum(nums.begin(), nums.end(), lm.begin(), [](int a, int b){return min(a,b); });
+      reverse(nums.begin(), nums.end());
+      partial_sum(nums.begin(), nums.end(), rm.begin(), [](int a, int b){return max(a,b); });
+      reverse(nums.begin(), nums.end());
+      reverse(rm.begin(), rm.end());
+      for (int i = 1; i < nums.size() - 1;i++)
+         {
+         int left = lm[i-1];
+         int current = nums[i];
+         int right = rm[i+1];
+         if (left < current && current < right)
+            {
+            return true;
+            }
+         }
+      return false
     }
 };
 int main()
 {
-   string w1="abc", w2="pqr";
+   vector<int> nums{1,2,0,3};
    Solution sol;
-   cout<<sol.mergeAlternately(w1,w2);
+   auto ret = sol.increasingTriplet(nums);;
+
    return 0;
 }
